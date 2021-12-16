@@ -18,18 +18,18 @@ const theme = createTheme({
             contrastText: "#5a4f57",
         },
         success: {
-            main: "#985E6D",
+            main: "rgba(10,36,180,0.98)",
             light: "#c67d90",
             dark: "#502e37",
         },
         warning: {
-            main: "#192231",
-            light: "#2e3e58",
-            dark: "#090d12",
+            main: "#d51818",
+            light: "#ce9f5a",
+            dark: "rgba(10,36,180,0.98)",
         },
         background: {
             default:"#192231",
-            paper: "#98878F",
+            paper: "#eceeee",
         },
        common: {
             black: "#000000",
