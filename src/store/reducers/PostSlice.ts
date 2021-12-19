@@ -1,36 +1,36 @@
 import { Post, PostState } from '../models';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { fetchPosts } from '../thunks';
 
 const initialState: PostState = {
   posts: [],
   isLoading: false,
-  error: ""
-}
+  error: '',
+};
 
-export const postsSlice = createSlice({
-       name: 'post',
-       initialState,
-     reducers: {
-         postsFetching(state) {
-           state.isLoading = true;
-         },
-       postsFetchingSuccess(state,action: PayloadAction<Post[] >) {
-         state.isLoading = false;
-         state.error = '';
-         state.posts = action.payload
+export let postsSlice: Slice<PostState, {}, string>;
+postsSlice = createSlice({
+  name: 'post',
+  initialState,
+  reducers: {
 
-       },
-       postsFetchingFailure(state,action: PayloadAction<string>) {
-         state.isLoading = false;
-         state.error = action.payload
+  },
+  extraReducers: (builder) => {
 
-       }
+    builder.addCase(fetchPosts.pending, (state: PostState) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchPosts.fulfilled, (state: PostState, action: PayloadAction<Post[]>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.posts = action.payload;
+    });
+    builder.addCase(fetchPosts.rejected, (state: PostState) => {
+      state.isLoading = false;
+      state.error = 'something vent wrong';
+    });
 
-     },
+  },
+});
 
-
-
-
-})
-
-export default  postsSlice.reducer
+export default postsSlice.reducer;

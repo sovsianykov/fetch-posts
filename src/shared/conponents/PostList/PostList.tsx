@@ -5,15 +5,16 @@ import React, {
   useState,
 } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Container, Grid, Pagination } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { RootState } from '../../../store/store';
-import { fetchPosts } from '../../../store/ActionСreators';
-import { Post } from '../../../store/models';
+import { Author, Post } from '../../../store/models';
 import MyPost from './MyPost';
 import Filters from '../Filters/Filters';
 import theme from '../../../constants/theme';
 import Paginator from './Paginator';
+import { postsWithAuthors } from './utils';
+import { fetchAuthors, fetchPosts } from '../../../store/thunks';
 
 const useStyles = makeStyles({
   root: {
@@ -39,13 +40,15 @@ const PostList: FunctionComponent = () => {
   const { posts, isLoading, error } = useAppSelector(
     (state: RootState) => state.postReducer
   );
+  const { authors } = useAppSelector((state: RootState) => state.authorReducer);
   useEffect(() => {
     dispatch(fetchPosts(page));
+    dispatch(fetchAuthors());
   }, [dispatch, page]);
-  console.log(isLoading, posts, error);
   const onDeleteHandler = useCallback((id) => {
     console.log(id);
   }, []);
+
   return (
     <Container className={classes.root}>
       <Filters />
@@ -55,9 +58,13 @@ const PostList: FunctionComponent = () => {
         page={page}
       />
       <Grid container spacing={2}>
-        {posts.map((post: Post) => (
+        {postsWithAuthors(posts, authors).map((post: Post) => (
           <Grid item xs={12} md={4} key={post.id}>
-            <MyPost post={post} onClick={() => onDeleteHandler} />
+            <MyPost
+              post={post}
+              author={post.user}
+              onClick={() => onDeleteHandler}
+            />
           </Grid>
         ))}
       </Grid>

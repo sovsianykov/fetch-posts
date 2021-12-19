@@ -9,8 +9,8 @@ const useStyles = makeStyles(() =>({
   },
   paper: {
      background: theme.palette.background.paper,
-    minHeight: 260,
-    position:'relative'
+    position:'relative',
+    minHeight: 390
   },
   buttonBlock : {
     position:"absolute",
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>({
 
 }));
 
-const MyPost: FunctionComponent<PostsProps> = ({ post, onClick }) => {
+const MyPost: FunctionComponent<PostsProps> = ({ post, onClick,author }) => {
   const onClickHandler =useCallback(() =>{
           onClick(post.id)
   },[])
@@ -29,10 +29,13 @@ const MyPost: FunctionComponent<PostsProps> = ({ post, onClick }) => {
   return <Box sx={{ minWidth: 275 ,}}>
        <Paper className={classes.paper}>
          <CardContent>
-           <Typography variant="h6" component="div">
+           <Typography variant="h5" component="div">
              {post.title}
            </Typography>
-           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+           <Typography variant="subtitle1" component="div" color='text.secondary'>
+            author: {post.user}
+           </Typography>
+           <Typography sx={{ fontSize: 14 }} color="text2" gutterBottom>
            </Typography>
            <Typography variant="body2">
              {post.body}
