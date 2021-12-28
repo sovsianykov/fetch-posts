@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, FormControl, FormHelperText, Input, InputLabel } from '@mui/material';
 import theme from '../../../constants/theme';
-import { Search } from '@mui/icons-material';
 
 const useStyles = makeStyles({
   root: {

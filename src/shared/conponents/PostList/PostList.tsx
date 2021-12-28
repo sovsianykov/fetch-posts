@@ -43,7 +43,7 @@ const PostList: FunctionComponent = () => {
 
   const onDeleteHandler = useCallback((id) => {
     dispatch(deletePosts(id));
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <CircularProgress className={classes.circular} />;
