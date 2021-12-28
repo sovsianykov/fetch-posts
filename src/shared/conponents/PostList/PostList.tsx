@@ -1,25 +1,27 @@
 import React, {
-  FunctionComponent,
+  FunctionComponent, memo,
   useCallback,
-  useEffect,
   useState,
 } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Container, Grid } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { RootState } from '../../../store/store';
-import { Author, Post } from '../../../store/models';
+import { CircularProgress, Container, Grid } from '@mui/material';
+import { useAppDispatch } from '../../../hooks/redux';
+import { Post } from '../../../store/models';
 import MyPost from './MyPost';
 import Filters from '../Filters/Filters';
 import theme from '../../../constants/theme';
 import Paginator from './Paginator';
 import { postsWithAuthors } from './utils';
-import { fetchAuthors, fetchPosts } from '../../../store/thunks';
+import { deletePosts } from '../../../store/thunks';
+import { useFetch } from '../../../hooks/useFetch';
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
     margin: `${theme.spacing(16)} auto`,
+  },
+  circular: {
+    margin: '30% 47%',
   },
 });
 
@@ -37,17 +39,19 @@ const PostList: FunctionComponent = () => {
   };
   const classes = useStyles();
   const dispatch = useAppDispatch();
-  const { posts, isLoading, error } = useAppSelector(
-    (state: RootState) => state.postReducer
-  );
-  const { authors } = useAppSelector((state: RootState) => state.authorReducer);
-  useEffect(() => {
-    dispatch(fetchPosts(page));
-    dispatch(fetchAuthors());
-  }, [dispatch, page]);
+  const { posts, isLoading, error, authors } = useFetch(page);
+
   const onDeleteHandler = useCallback((id) => {
-    console.log(id);
+    dispatch(deletePosts(id));
   }, []);
+
+  if (isLoading) {
+    return <CircularProgress className={classes.circular} />;
+  }
+
+  if (error) {
+    return <h3>"something vent wrong!"</h3>;
+  }
 
   return (
     <Container className={classes.root}>
@@ -60,11 +64,11 @@ const PostList: FunctionComponent = () => {
       <Grid container spacing={2}>
         {postsWithAuthors(posts, authors).map((post: Post) => (
           <Grid item xs={12} md={4} key={post.id}>
-            <MyPost
-              post={post}
-              author={post.user}
-              onClick={() => onDeleteHandler}
-            />
+             <MyPost
+               post={post}
+               author={post.user}
+               onClick={() => onDeleteHandler(post.id)}
+             />
           </Grid>
         ))}
       </Grid>
@@ -72,4 +76,4 @@ const PostList: FunctionComponent = () => {
   );
 };
 
-export default PostList;
+export default memo(PostList);

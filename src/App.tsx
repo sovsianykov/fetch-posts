@@ -4,10 +4,10 @@ import PostList from './shared/conponents/PostList/PostList';
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <PostList />
-    </div>
+    </>
   );
 }
 

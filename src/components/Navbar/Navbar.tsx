@@ -9,10 +9,13 @@ const useStyles = makeStyles(() =>createStyles({
         height: 100,
         background: theme.palette.background.default,
         fontFamily: theme.typography.fontFamily,
-        color: theme.palette.common.white
+        color: theme.palette.common.white,
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center"
     },
     logo : {
-
+        marginLeft: "30px",
     }
 
 }))
@@ -24,7 +27,9 @@ const Navbar:FunctionComponent = () => {
     const classes = useStyles()
     return (
         <AppBar className={classes.root}>
-           <Typography variant='h2' color={theme.palette.common.white}>Navbar</Typography>
+           <Typography variant='h3' color={theme.palette.common.white}
+           className={classes.logo}
+           >Test-Task</Typography>
         </AppBar>
     );
 };

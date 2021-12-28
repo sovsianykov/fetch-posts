@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, memo, useCallback } from 'react';
 import { PostsProps } from './models';
-import { Box, Button, Card, CardActions, CardContent, Paper, Typography } from '@mui/material';
+import { Box, Button, CardActions, CardContent, Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../../../constants/theme';
 const useStyles = makeStyles(() =>({
@@ -21,10 +21,10 @@ const useStyles = makeStyles(() =>({
 
 }));
 
-const MyPost: FunctionComponent<PostsProps> = ({ post, onClick,author }) => {
+const MyPost: FunctionComponent<PostsProps> = ({ post,onClick }) => {
   const onClickHandler =useCallback(() =>{
           onClick(post.id)
-  },[])
+  },[onClick, post.id])
   const classes = useStyles();
   return <Box sx={{ minWidth: 275 ,}}>
        <Paper className={classes.paper}>
@@ -51,4 +51,4 @@ const MyPost: FunctionComponent<PostsProps> = ({ post, onClick,author }) => {
   </Box>;
 };
 
-export default MyPost;
+export default memo(MyPost);

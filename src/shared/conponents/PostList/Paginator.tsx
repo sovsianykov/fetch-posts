@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Box, Button } from '@mui/material';
 import { PaginatorProps } from './models';
 import { makeStyles } from '@mui/styles';

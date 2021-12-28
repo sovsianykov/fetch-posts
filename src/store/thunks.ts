@@ -21,3 +21,13 @@ export const fetchAuthors  = createAsyncThunk(
     return response.data;
   }
 )
+
+export const deletePosts = createAsyncThunk(
+  'posts/deletePosts',
+  async  function(id: number) {
+     await axios.delete<Post[]>(
+      `https://jsonplaceholder.typicode.com/posts/${id}_`
+    );
+    return id;
+  }
+)
