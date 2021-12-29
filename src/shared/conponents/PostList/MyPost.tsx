@@ -47,8 +47,8 @@ const MyPost: FunctionComponent<PostsProps> = ({ post,onClick }) => {
            <Button size="small">more</Button>
              </Link>
            <Button color='warning' onClick={onClickHandler} size="small">Delete</Button>
-           <Button color='success' onClick={onClickHandler} size="small">Update</Button>
-           <Button color='info' onClick={onClickHandler} size="small">comment</Button>
+           <Button color='success' onClick={() => null} size="small">Update</Button>
+           <Button color='info' onClick={() => null} size="small">comment</Button>
          </CardActions>
        </Paper>
   </Box>;
