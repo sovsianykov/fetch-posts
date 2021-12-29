@@ -3,12 +3,13 @@ import { PostsProps } from './models';
 import { Box, Button, CardActions, CardContent, Paper, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../../../constants/theme';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles(() =>({
   root: {
     width: 300,
   },
   paper: {
-     background: theme.palette.background.paper,
+    background: theme.palette.background.paper,
     position:'relative',
     minHeight: 390
   },
@@ -42,7 +43,9 @@ const MyPost: FunctionComponent<PostsProps> = ({ post,onClick }) => {
            </Typography>
          </CardContent>
          <CardActions className={classes.buttonBlock}>
+           <Link to={`/posts/${post.id} `} >
            <Button size="small">more</Button>
+             </Link>
            <Button color='warning' onClick={onClickHandler} size="small">Delete</Button>
            <Button color='success' onClick={onClickHandler} size="small">Update</Button>
            <Button color='info' onClick={onClickHandler} size="small">comment</Button>

@@ -108,4 +108,13 @@ code {
   font-weight: bold;
   font-style: italic;
 }
+link, a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+  &:hover {
+    color: darkgrey;
+  }
+}
 
